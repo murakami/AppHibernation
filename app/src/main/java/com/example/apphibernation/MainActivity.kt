@@ -58,17 +58,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun handleRestrictions(appRestrictionsStatus: Int) {
-        Log.d("Hibernation", "handleRestrictions")
-        // If your app works primarily in the background, you can ask the user
-        // to disable these restrictions. Check if you have already asked the
-        // user to disable these restrictions. If not, you can show a message to
-        // the user explaining why permission auto-reset or app hibernation should be
-        // disabled. Then, redirect the user to the page in system settings where they
-        // can disable the feature.
-        val intent = IntentCompat.createManageUnusedAppRestrictionsIntent(this, packageName)
+        Log.d("Hibernation", "handleRestrictions: BEGIN")
+        try {
+            Log.d("Hibernation", "handleRestrictions: call createManageUnusedAppRestrictionsIntent")
+            // If your app works primarily in the background, you can ask the user
+            // to disable these restrictions. Check if you have already asked the
+            // user to disable these restrictions. If not, you can show a message to
+            // the user explaining why permission auto-reset or app hibernation should be
+            // disabled. Then, redirect the user to the page in system settings where they
+            // can disable the feature.
+            val intent = IntentCompat.createManageUnusedAppRestrictionsIntent(this, packageName)
 
-        // You must use startActivityForResult(), not startActivity(), even if
-        // you don't use the result code returned in onActivityResult().
-        startActivityForResult(intent, REQUEST_CODE)
+            Log.d("Hibernation", "handleRestrictions: call startActivityForResult")
+            // You must use startActivityForResult(), not startActivity(), even if
+            // you don't use the result code returned in onActivityResult().
+            startActivityForResult(intent, REQUEST_CODE)
+        } catch (e: Exception) {
+            Log.e("Hibernation", e.toString())
+        }
+        Log.d("Hibernation", "handleRestrictions: END")
     }
 }
